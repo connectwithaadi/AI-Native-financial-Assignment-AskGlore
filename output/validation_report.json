@@ -1,0 +1,378 @@
+{
+  "period": "2024-Q4",
+  "functional_currency": "USD",
+  "audit": {
+    "period": "2024-Q4",
+    "run_fingerprint": "db605c69eb28a74109f0580da33b3f5d5f2e54f4e3ece7b1762e33a547e718ed",
+    "input_fingerprints": {
+      "trial_balance.csv": "6a5d38f4a7792e5a749d62ec34be8c2aa29f540ccf3c95caedf3e1f1b5203ca8",
+      "chart_of_accounts.csv": "1139711bd276b2d443ab83b9a6461b3e1f62a26416962b0dcd0e0762028e49bf",
+      "manual_adjustments.json": "26fcad0c0c7bda5306efea47e0c73238b2828b5d30afdd1bb0d54bb6a6704a0f",
+      "prior_period_tb.csv": "aa1439622935eadb08ec1d0911c0c2f207fd9e71d32479326f5714a4c4180595",
+      "fx_rates.csv": "268c9b9b5a14ea5533e596ed8872f1c3b5515c92a46c9b197a10ef9f909d1893"
+    },
+    "validation_version": "1.0.0"
+  },
+  "data_quality_issues": [
+    {
+      "code": "TB_ACCOUNT_MISSING_FROM_COA",
+      "severity": "error",
+      "message": "Trial Balance account 9999 does not exist in the Chart of Accounts.",
+      "source_id": "9999"
+    },
+    {
+      "code": "TB_OUT_OF_BALANCE",
+      "severity": "error",
+      "message": "Trial Balance credits exceed debits by 4800.00.",
+      "source_id": "trial_balance.csv"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 1000 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "1000"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 1100 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "1100"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 1200 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "1200"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 1290 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "1290"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 2000 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "2000"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 2100 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "2100"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 2200 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "2200"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 3000 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "3000"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 3200 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "3200"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 3300 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "3300"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 3310 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "3310"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 4000 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "4000"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 4100 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "4100"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 4110 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "4110"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 4200 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "4200"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 4300 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "4300"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 5000 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "5000"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 5100 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "5100"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 5110 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "5110"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 5120 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "5120"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 6000 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "6000"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 6100 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "6100"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 6110 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "6110"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 6120 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "6120"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 6200 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "6200"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 6210 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "6210"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 6220 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "6220"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 6300 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "6300"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 6310 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "6310"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 6400 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "6400"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 6410 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "6410"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 6900 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "6900"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 7000 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "7000"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 7100 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "7100"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 7200 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "7200"
+    },
+    {
+      "code": "MISSING_CF_CATEGORY",
+      "severity": "warning",
+      "message": "Account 8000 has no cash-flow classification in the Chart of Accounts.",
+      "source_id": "8000"
+    }
+  ],
+  "fx_issues": [
+    {
+      "code": "MISSING_PERIOD_END_FX_RATE",
+      "severity": "error",
+      "message": "No period-end FX rate found for GBP for period 2024-Q4.",
+      "source_id": "GBP"
+    }
+  ],
+  "reconciliation_issues": [
+    {
+      "code": "PRIOR_PERIOD_ACCOUNT_MISSING",
+      "severity": "warning",
+      "message": "Account 6905 appears in the prior period but not in the current Trial Balance. Check for closure, renumbering, or mapping changes.",
+      "source_id": "6905"
+    }
+  ],
+  "summary": {
+    "total_entries": 10,
+    "eligible": 7,
+    "rejected": 2,
+    "needs_review": 1
+  },
+  "results": [
+    {
+      "journal_id": "JE-001",
+      "status": "eligible",
+      "debit_total": "850000.0",
+      "credit_total": "850000.0",
+      "issues": []
+    },
+    {
+      "journal_id": "JE-002",
+      "status": "rejected",
+      "debit_total": "28500.0",
+      "credit_total": "25000.0",
+      "issues": [
+        {
+          "code": "UNBALANCED_ENTRY",
+          "severity": "error",
+          "message": "Debits and credits differ by 3500.0.",
+          "source_id": "JE-002"
+        }
+      ]
+    },
+    {
+      "journal_id": "JE-003",
+      "status": "eligible",
+      "debit_total": "11200.0",
+      "credit_total": "11200.0",
+      "issues": []
+    },
+    {
+      "journal_id": "JE-004",
+      "status": "eligible",
+      "debit_total": "45000.0",
+      "credit_total": "45000.0",
+      "issues": []
+    },
+    {
+      "journal_id": "JE-005",
+      "status": "rejected",
+      "debit_total": "18500.0",
+      "credit_total": "18500.0",
+      "issues": [
+        {
+          "code": "UNKNOWN_ACCOUNT",
+          "severity": "error",
+          "message": "Account 6315 is missing from the COA.",
+          "source_id": "JE-005"
+        }
+      ]
+    },
+    {
+      "journal_id": "JE-006",
+      "status": "eligible",
+      "debit_total": "215000.0",
+      "credit_total": "215000.0",
+      "issues": []
+    },
+    {
+      "journal_id": "JE-007",
+      "status": "eligible",
+      "debit_total": "38000.0",
+      "credit_total": "38000.0",
+      "issues": []
+    },
+    {
+      "journal_id": "JE-008",
+      "status": "needs_review",
+      "debit_total": "320000.0",
+      "credit_total": "320000.0",
+      "issues": [
+        {
+          "code": "INTERCOMPANY_REVIEW_REQUIRED",
+          "severity": "warning",
+          "message": "Intercompany entry contains debit and credit lines for the same account. Verify entity, counterparty, and settlement references.",
+          "source_id": "JE-008"
+        }
+      ]
+    },
+    {
+      "journal_id": "JE-009",
+      "status": "eligible",
+      "debit_total": "75000.0",
+      "credit_total": "75000.0",
+      "issues": []
+    },
+    {
+      "journal_id": "JE-010",
+      "status": "eligible",
+      "debit_total": "200000.0",
+      "credit_total": "200000.0",
+      "issues": []
+    }
+  ],
+  "ai_investigation": {
+    "status": "success",
+    "model": "openai/gpt-oss-20b",
+    "analysis": "**Investigation Report \u2013 Validation Summary (10 journal entries)**  \n\n| Category | Count (from validation) |\n|----------|------------------------|\n| Eligible for posting | 7 |\n| Rejected (errors)    | 2 |\n| Needs manual review  | 1 |\n| Total entries processed | 10 |\n\n---\n\n## 1. Critical Errors (must be resolved before posting)\n\n| Code | Observed Fact | Why it matters | Immediate human checks | Evidence still needed |\n|------|---------------|----------------|------------------------|-----------------------|\n| **TB_ACCOUNT_MISSING_FROM_COA** | Trial\u2011Balance line references account **9999**, which is not present in the Chart of Accounts (COA). | A posting to a non\u2011existent account will be rejected by the accounting system and can hide the true nature of the transaction. | \u2022 Verify whether 9999 is a typo, a newly created account, or an obsolete code.<br>\u2022 If the account should exist, add it to the COA with correct attributes (type, segment, cash\u2011flow classification).<br>\u2022 If it is erroneous, correct the trial\u2011balance line to a valid account. | Copy of the current COA (including any pending updates) and the source trial\u2011balance file showing the 9999 line. |\n| **TB_OUT_OF_BALANCE** | Credits exceed debits by **4800.00** in the trial\u2011balance file. | An out\u2011of\u2011balance trial balance indicates missing or mis\u2011posted amounts; the financial statements will be inaccurate. | \u2022 Re\u2011run the trial\u2011balance aggregation to locate the specific lines that create the 4800\u202f\u0394.<br>\u2022 Check for omitted entries, rounding issues, or duplicated lines.<br>\u2022 Confirm that all adjusting entries for the period have been included. | Detailed trial\u2011balance line\u2011by\u2011line report (debit/credit amounts per account). |\n| **UNBALANCED_ENTRY** | Journal **JE\u2011002** has debits and credits that differ by **3\u202f500.0**. | Unbalanced journal entries cannot be posted; they break double\u2011entry integrity. | \u2022 Open JE\u2011002 and compare each line\u2019s debit/credit amounts.<br>\u2022 Identify missing or extra line(s) or rounding errors.<br>\u2022 Determine whether the entry is a composite of multiple sub\u2011entries that were split incorrectly. | Full journal entry JE\u2011002 (all line items, amounts, account numbers, and supporting documentation). |\n| **UNKNOWN_ACCOUNT** | Journal **JE\u2011005** references account **6315**, which is absent from the COA. | Posting to an unknown account will be blocked and may indicate a mapping or data\u2011entry problem. | \u2022 Confirm whether 6315 should exist (e.g., new account, legacy code).<br>\u2022 If valid, add it to the COA with required attributes.<br>\u2022 If invalid, correct the journal line to a proper account. | Current COA export and the source documentation for JE\u2011005 (e.g., invoice, contract). |\n| **MISSING_PERIOD_END_FX_RATE** | No period\u2011end foreign\u2011exchange rate for **GBP** for period **2024\u2011Q4**. | Without a rate, any GBP\u2011denominated amounts cannot be translated to the reporting currency, leading to incomplete or misstated consolidated figures. | \u2022 Locate the official GBP rate for the quarter (central bank, Bloomberg, internal rate sheet).<br>\u2022 Enter the rate into the FX master data for 2024\u2011Q4.<br>\u2022 Re\u2011run any currency conversion steps. | Source of approved FX rates for the period and the system table where rates are stored. |\n\n---\n\n## 2. Warnings (require review but do not block posting)\n\n| Code | Observed Fact | Why it matters | Suggested human review | Missing evidence |\n|------|---------------|----------------|------------------------|-------------------|\n| **MISSING_CF_CATEGORY** (multiple accounts) | Over **30** accounts (e.g., 1000, 1100, 1200, \u2026 8000) have **no cash\u2011flow classification** in the COA. | Cash\u2011flow statements rely on these classifications; missing data can cause incomplete or mis\u2011categorized cash\u2011flow reporting. | \u2022 For each listed account, determine the appropriate cash\u2011flow category (Operating, Investing, Financing).<br>\u2022 Update the COA with the classification.<br>\u2022 Verify that downstream reports pick up the new categories. | The cash\u2011flow mapping policy and the current COA fields for cash\u2011flow classification. |\n| **PRIOR_PERIOD_ACCOUNT_MISSING** | Account **6905** appears in the prior\u2011period trial balance but is absent in the current period. | Could indicate account closure, renumbering, or a missing mapping; if the balance was not transferred, the current period may be misstated. | \u2022 Check whether 6905 was intentionally closed or merged.<br>\u2022 If closed, ensure its ending balance was transferred to the appropriate successor account.<br>\u2022 If the account should still be active, add it back to the COA. | Prior\u2011period trial balance, closing entries, and any account\u2011renumbering documentation. |\n| **INTERCOMPANY_REVIEW_REQUIRED** | Journal **JE\u2011008** contains both debit and credit lines for the **same account** in an inter\u2011company entry. | May signal an incorrect entity or counter\u2011party assignment, leading to duplicate or missing inter\u2011company eliminations. | \u2022 Review JE\u2011008 line\u2011by\u2011line to confirm the intended entities and counterparties.<br>\u2022 Verify that the inter\u2011company net effect is zero after proper entity tagging.<br>\u2022 Adjust entity codes or split the entry if needed. | Full JE\u2011008 details (entity IDs, line amounts, supporting inter\u2011company agreement). |\n\n---\n\n## 3. Evidence Gaps that Must Be Obtained Before Closing\n\n1. **Complete COA export** (including all custom fields such as cash\u2011flow classification and FX\u2011rate linkage).  \n2. **Full trial\u2011balance file** with debit/credit amounts per account to pinpoint the 4800\u202f\u0394.  \n3. **Journal entry extracts** for JE\u2011002, JE\u2011005, and JE\u2011008 (all line items, dates, supporting documents).  \n4. **Official FX rate source** for GBP for 2024\u2011Q4 (e.g., Bloomberg, ECB).  \n5. **Cash\u2011flow classification policy** that defines required categories for each account type.  \n6. **Prior\u2011period closing documentation** (closing entries, account renumbering logs) to explain the disappearance of account 6905.  \n\n---\n\n## 4. Recommended Next Steps (in order of priority)\n\n1. **Resolve all error\u2011level items** (missing accounts, out\u2011of\u2011balance trial balance, unbalanced journal, missing FX rate).  \n2. **Obtain the missing evidence** listed above; without it, any corrective action would be speculative.  \n3. **Address cash\u2011flow classification warnings** to ensure downstream reporting completeness.  \n4. **Review inter\u2011company entry JE\u2011008** for proper entity mapping.  \n5. **Re\u2011run the validation** after each corrective action to confirm that the entry count moves from \u201crejected\u201d to \u201celigible\u201d and that the \u201cneeds review\u201d flag is cleared.  \n\n*All suggested actions require a qualified accounting professional to verify the business rationale and to make any changes in the production system.*"
+  },
+  "rejection_explanations": [
+    {
+      "journal_id": "JE-002",
+      "status": "success",
+      "explanation": "**Rejection Reason**  \nThe journal entry **JE\u2011002** was rejected because it is **unbalanced** \u2013 the total debits do not equal the total credits.\n\n**Validation Finding**  \n- **Code:** `UNBALANCED_ENTRY`  \n- **Severity:** error  \n- **Message:** \u201cDebits and credits differ by 3500.0.\u201d  \n- **Amounts:** Debits =\u202f$28,500.00, Credits =\u202f$25,000.00\n\n**Next Steps for the Finance User**  \n1. Verify the amounts entered for each line item.  \n2. Ensure that the sum of all debit amounts equals the sum of all credit amounts.  \n3. Adjust the line amounts or add a balancing line so that the totals match before resubmitting the journal."
+    },
+    {
+      "journal_id": "JE-005",
+      "status": "success",
+      "explanation": "**Rejection Summary for Journal JE\u2011005**\n\n1. **Reason for Rejection**  \n   The journal was rejected because one of its line items references an account that does not exist in the Chart of Accounts (COA).  \n\n2. **Validation Finding**  \n   - **Code:** `UNKNOWN_ACCOUNT`  \n   - **Severity:** error  \n   - **Message:** \u201cAccount 6315 is missing from the COA.\u201d  \n   - **Amount Affected:** $18,500.00 (the debit entry to account\u202f6315).  \n\n3. **Next Steps for the Finance User**  \n   - Verify whether account\u202f6315 is the correct code for the expense you intend to record.  \n   - If 6315 is a typo, correct it to the proper account number that exists in the COA.  \n   - If 6315 is a new account that should be added, coordinate with the COA management team to create the account before resubmitting the journal.  \n   - Once the account issue is resolved, re\u2011validate the journal to ensure all other entries are correct.  \n\nIf you are unsure which account should be used, consult the accounting policy or the COA documentation for the appropriate expense classification."
+    }
+  ]
+}
