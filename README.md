@@ -245,7 +245,7 @@ This is a focused prototype, not a complete financial reporting platform.
 ## Documentation
 
 - [Architecture](docs/architecture.md)
-- [Reflection](reflection.md)
+- [Reflection](docs/reflection.md)
 
 ## How to Run and Verify
 
