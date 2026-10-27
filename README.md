@@ -33,36 +33,8 @@ The system combines deterministic accounting rules with LLM-generated explanatio
 
 ## 2. Architecture
 
-```text
-Financial Source Files
-        |
-        v
-Data Ingestion and Schema Validation
-        |
-        v
-Deterministic Validation Engine
-        |
-        +--> Journal Entry Validation
-        +--> Trial Balance Data Quality
-        +--> FX Rate Validation
-        +--> Prior-Period Reconciliation
-        |
-        v
-Validation Findings
-        |
-        +-----------------------------+
-        |                             |
-        v                             v
-Groq + LangChain              Deterministic Fallback
-        |                             |
-        +--------------+--------------+
-                       |
-                       v
-          Journal Rejection Explanations
-                       |
-                       v
-          JSON Report and Human Review
-```
+![erp-architecture](erp-architecture.png)
+---
 
 The deterministic engine decides validation status. The LLM explains findings but does not approve journals, modify financial balances, invent exchange rates, or post entries to an ERP system.
 
