@@ -1,0 +1,140 @@
+(erp-financial-agent) PS C:\Users\aadit\OneDrive\Desktop\erp-financial-agent> python -m pytest -v
+==================================================================== test session starts =====================================================================
+platform win32 -- Python 3.13.15, pytest-9.1.1, pluggy-1.7.0 -- C:\Users\aadit\OneDrive\Desktop\erp-financial-agent\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\aadit\OneDrive\Desktop\erp-financial-agent
+plugins: anyio-4.15.1, langsmith-0.14.13
+collected 10 items                                                                                                                                            
+
+tests/test_data_quality.py::test_detects_unknown_account_and_imbalance PASSED                                                                           [ 10%]
+tests/test_data_quality.py::test_detects_missing_cash_flow_category PASSED                                                                              [ 20%]
+tests/test_data_quality.py::test_clean_trial_balance_has_no_issues PASSED                                                                               [ 30%]
+tests/test_reconciliation.py::test_missing_period_end_fx_rate_is_flagged PASSED                                                                         [ 40%]
+tests/test_reconciliation.py::test_existing_period_end_rates_pass PASSED                                                                                [ 50%]
+tests/test_reconciliation.py::test_prior_period_only_account_is_flagged PASSED                                                                          [ 60%]
+tests/test_validators.py::test_balanced_entry_is_eligible PASSED                                                                                        [ 70%]
+tests/test_validators.py::test_unbalanced_entry_is_rejected PASSED                                                                                      [ 80%]
+tests/test_validators.py::test_unknown_account_is_rejected PASSED                                                                                       [ 90%]
+tests/test_validators.py::test_intercompany_entry_requires_review PASSED                                                                                [100%]
+
+===================================================================== 10 passed in 0.53s =====================================================================
+(erp-financial-agent) PS C:\Users\aadit\OneDrive\Desktop\erp-financial-agent> python -m src.main
+{
+  "total_entries": 10,
+  "eligible": 7,
+  "rejected": 2,
+  "needs_review": 1
+}
+Data-quality issues: 38
+Report saved to: C:\Users\aadit\OneDrive\Desktop\erp-financial-agent\output\validation_report.json
+(erp-financial-agent) PS C:\Users\aadit\OneDrive\Desktop\erp-financial-agent> 
+(erp-financial-agent) PS C:\Users\aadit\OneDrive\Desktop\erp-financial-agent> python -c "import json; d=json.load(open('output/validation_report.json', encoding='utf-8')); print(json.dumps(d.get('ai_investigation', {'status':'missing','reason':'No AI section in report'}), indent=2))"
+{
+  "status": "success",
+  "model": "openai/gpt-oss-20b",
+  "analysis": "**Investigation Report \u2013 Validation Summary (10 journal entries)**  \n\n| Category | Observed fact (from validation) | Why it may matter |Immediate human checks | Evidence still needed |\n|----------|--------------------------------|-------------------|------------------------|-----------------------|\n| **Critical Errors** | | | | |\n| TB_ACCOUNT_MISSING_FROM_COA | Trial\u2011Balance line references account **9999**, which is not present in the Chartof Accounts (COA). | A missing COA entry means the balance cannot be posted to a legitimate ledger account \u2013 the trial balance is incomplete and may hidemis\u2011classifications. | \u2022 Verify whether account\u202f9999 should exist (new account, typo, or obsolete). <br>\u2022 If it should exist, add it to the COA with correct attributes (type, cash\u2011flow classification, etc.). <br>\u2022 If it is a typo, locate the correct account number in the source file andamend the trial\u2011balance line. | Copy of the trial\u2011balance file showing the line for 9999; any change\u2011log or account\u2011setup documentation. |\n| TB_OUT_OF_BALANCE | Credits exceed debits by **4,800.00** in the trial\u2011balance file. | An out\u2011of\u2011balance trial balance prevents the books from closing and may indicate missing or duplicated entries. | \u2022 Re\u2011run the trial\u2011balance totals to confirm the discrepancy. <br>\u2022 Identify which rows contribute to the excess (e.g., missing debit, extra credit). <br>\u2022 Review supporting source documents (GL extracts, subsidiary ledgers) for theperiod. | Detailed trial\u2011balance listing with debit/credit amounts per account; any reconciliation worksheets. |\n| MISSING_PERIOD_END_FX_RATE | No period\u2011end foreign\u2011exchange rate found for **GBP** for period **2024\u2011Q4**. | Without a rate, any GBP\u2011denominated amounts cannot be translated tothe reporting currency, leading to inaccurate consolidated figures. | \u2022 Locate the FX rate source (e.g., market data feed, treasury file). <br>\u2022 Confirm whether the rate should be present for Q4\u202f2024. <br>\u2022 If missing, obtain the official rate and record it in the FX table. | FX rate table for the reporting entity covering Q4\u202f2024; policy on rate selection (closing vs. average). |\n| UNBALANCED_ENTRY | Journal **JE\u2011002** has debits and credits that differ by **3,500.0**. | An unbalanced journal entry violates double\u2011entry accounting and will be rejected by downstream processes. | \u2022 Open JE\u2011002 and list each line (account, debit/credit amount). <br>\u2022 Identify the line(s) causing the imbalance (missing line, wrong amount, sign error). <br>\u2022 Correct the entry or add a compensating line. | Full journal entry detail for JE\u2011002 (including line numbers, amounts, and source documentation). |\n| UNKNOWN_ACCOUNT | Journal **JE\u2011005** references account **6315**, which is not in the COA. | Posting to an unknown account can create orphan balances and reporting gaps. | \u2022 Confirm whether 6315 is a legitimate account that was omitted from the COA. <br>\u2022 If it should exist, add it with proper attributes. <br>\u2022 If it is a typo, locate the intended account and amend the journal. | JE\u2011005 line\u2011item list; any account master\u2011file change logs. |\n| **Warnings (Potential Issues)** | | | | |\n| MISSING_CF_CATEGORY (multiple accounts) | Over 30 accounts (e.g., 1000, 1100, 1200 \u2026 8000) have **no cash\u2011flow classification** defined in the COA. | Cash\u2011flow statements (operating, investing, financing) rely on these classifications; missing data can lead to incomplete or mis\u2011categorized cash\u2011flow reporting. | \u2022 Review the accounting policy for cash\u2011flow classification. <br>\u2022 Assign the appropriate classification (operating, investing, financing, or none) to each listed account. <br>\u2022 Document the rationale for each assignment. | Current COA extract showing classification fields; cash\u2011flow mapping guidelines. |\n| PRIOR_PERIOD_ACCOUNT_MISSING | Account **6905** appears in the prior\u2011period trial balance but not in the current one. | Could indicate account closure, renumbering, or mapping error; if the balance was not transferred, it may be lost. | \u2022 Check whether 6905 was formally closed or merged. <br>\u2022 Verify that any ending balance was transferred to a replacement account. <br>\u2022 Ensure the current trial balance reflects the proper closing entries. | Prior\u2011period trial balance; account closure/renumbering documentation; closing journal entries. |\n| INTERCOMPANY_REVIEW_REQUIRED | Journal **JE\u2011008** contains debit and credit lines for the **same account** in an inter\u2011company transaction. | May signal an incorrect inter\u2011company mapping, missing counterpart entity, or duplicate posting, which can distort inter\u2011company eliminations. | \u2022 Examine JE\u2011008 line\u2011items to identify the entity, counterpart, and purpose. <br>\u2022 Confirm that each side of the transaction uses the correct inter\u2011company accounts for each entity. <br>\u2022 Adjust the entry or create the missing counterpart line. | Full JE\u2011008 detail, inter\u2011company account master list, and any inter\u2011company agreement documentation. |\n| **Overall Processing Status** | From the summary: **eligible\u202f=\u202f7**, **rejected\u202f=\u202f2**, **needs_review\u202f=\u202f1**. | The two rejected entries likely correspond to the critical errors above; the one needing review is probably the inter\u2011company warning. | \u2022 Map each rejected entry to its error code to confirm. <br>\u2022 Prioritise fixing the critical errors before attempting to re\u2011process the eligible entries. | Processing log that links each journal ID to its validation outcome. |\n\n### Next Steps for the Review Team\n1. **Resolve all critical errors** (missing COA accounts, out\u2011of\u2011balance trial balance, missing FX rate, unbalanced journal, unknown account).  \n2. **Complete cash\u2011flow classification** for the listed accounts to enable accurate cash\u2011flow reporting.  \n3. **Investigate the inter\u2011company entry** (JE\u2011008) and the prior\u2011period missing account (6905) to ensure proper consolidation.  \n4. **Gather the missing evidence** listed in the \u201cEvidence still needed\u201d column before making any changes.  \n\nOnly after these checks and the required documentation are in place should the entries be re\u2011validated and, if appropriate, re\u2011submitted for processing."
+}
+(erp-financial-agent) PS C:\Users\aadit\OneDrive\Desktop\erp-financial-agent> python -m pytest -v
+==================================================================== test session starts =====================================================================
+platform win32 -- Python 3.13.15, pytest-9.1.1, pluggy-1.7.0 -- C:\Users\aadit\OneDrive\Desktop\erp-financial-agent\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\aadit\OneDrive\Desktop\erp-financial-agent
+plugins: anyio-4.15.1, langsmith-0.14.13
+collected 13 items                                                                                                                                            
+
+tests/test_data_quality.py::test_detects_unknown_account_and_imbalance PASSED                                                                           [  7%]
+tests/test_data_quality.py::test_detects_missing_cash_flow_category PASSED                                                                              [ 15%]
+tests/test_data_quality.py::test_clean_trial_balance_has_no_issues PASSED                                                                               [ 23%]
+tests/test_reconciliation.py::test_missing_period_end_fx_rate_is_flagged PASSED                                                                         [ 30%]
+tests/test_reconciliation.py::test_existing_period_end_rates_pass PASSED                                                                                [ 38%]
+tests/test_reconciliation.py::test_prior_period_only_account_is_flagged PASSED                                                                          [ 46%]
+tests/test_rejection_explanations.py::test_deterministic_explanation_includes_validation_issue PASSED                                                   [ 53%]
+tests/test_rejection_explanations.py::test_rejection_explanation_works_without_api_key PASSED                                                           [ 61%]
+tests/test_rejection_explanations.py::test_eligible_journals_are_not_explained PASSED                                                                   [ 69%]
+tests/test_validators.py::test_balanced_entry_is_eligible PASSED                                                                                        [ 76%]
+tests/test_validators.py::test_unbalanced_entry_is_rejected PASSED                                                                                      [ 84%]
+tests/test_validators.py::test_unknown_account_is_rejected PASSED                                                                                       [ 92%]
+tests/test_validators.py::test_intercompany_entry_requires_review PASSED                                                                                [100%]
+
+===================================================================== 13 passed in 0.90s =====================================================================
+(erp-financial-agent) PS C:\Users\aadit\OneDrive\Desktop\erp-financial-agent> python -m src.main
+{
+  "total_entries": 10,
+  "eligible": 7,
+  "rejected": 2,
+  "needs_review": 1
+}
+Data-quality issues: 38
+Report saved to: C:\Users\aadit\OneDrive\Desktop\erp-financial-agent\output\validation_report.json
+(erp-financial-agent) PS C:\Users\aadit\OneDrive\Desktop\erp-financial-agent> python -c "import json; d=json.load(open('output/validation_report.json', encoding='utf-8')); print(json.dumps(d.get('rejection_explanations'), indent=2))"
+[
+  {
+    "journal_id": "JE-002",
+    "status": "success",
+    "explanation": "**Rejection Reason**  \nThe journal entry **JE\u2011002** was rejected because it is **unbalanced** \u2013 the total debits do not equal the total credits.\n\n**Validation Finding**  \n- **Code:** `UNBALANCED_ENTRY`  \n- **Severity:** error  \n- **Message:** \u201cDebits and credits differ by 3500.0.\u201d  \n- **Amounts:** Debits =\u202f$28,500.00, Credits =\u202f$25,000.00\n\n**Next Steps for the Finance User**  \n1. Verify the amounts entered for each line item.  \n2. Ensure that the sum of all debit amounts equals the sum of all credit amounts.  \n3. Adjust the entry (add or modify a line) so that the totals balance before resubmitting."
+  },
+  {
+    "journal_id": "JE-005",
+    "status": "success",
+    "explanation": "**Rejection Summary for Journal JE\u2011005**\n\n1. **Reason for Rejection**  \n   The journal was rejected because one of its line items references an account that does not exist in the Chart of Accounts (COA). The system flagged this as an error, preventing the entry from being posted.\n\n2. **Validation Finding**  \n   - **Code:** `UNKNOWN_ACCOUNT`  \n   - **Severity:** Error  \n   - **Message:** \u201cAccount 6315 is missing from the COA.\u201d  \n  - **Amount Involved:** $18,500.00 (the debit amount on account 6315).\n\n3. **Next Steps for the Finance User**  \n   - Verify whether account **6315** is the correct code for the expense you intend to record.  \n   - If 6315 is the intended account, add it to the COA or correct the account number to an existing one.  \n   - Once the account issue is resolved, re\u2011submit the journal for approval.  \n\nIf you are unsure about the correct account code, consult your accounting policy or the COA administrator before making changes."
+  }
+]
+(erp-financial-agent) PS C:\Users\aadit\OneDrive\Desktop\erp-financial-agent> python -c "import pandas as pd; from pathlib import Path; p=Path('data'); files=['trial_balance.csv','chart_of_accounts.csv','manual_adjustments.json','prior_period_tb.csv','fx_rates.csv']; [(print('\n--- '+f+' ---'), print(pd.read_csv(p/f, nrows=3).to_string(index=False) if f.endswith('.csv') else 'JSON file: '+f)) for f in files if (p/f).exists()]"
+
+--- trial_balance.csv ---
+ account_code              account_name currency     debit  credit
+         1110 Cash and Cash Equivalents      USD 4250000.0     0.0
+         1110 Cash and Cash Equivalents      EUR  825400.0     0.0
+         1110 Cash and Cash Equivalents      GBP  412300.0     0.0
+
+--- chart_of_accounts.csv ---
+ account_code              account_name account_type  parent_code statement cf_category normal_balance
+         1000              Total Assets       Header          NaN        BS         NaN          Debit
+         1100            Current Assets       Header       1000.0        BS         NaN          Debit
+         1110 Cash and Cash Equivalents        Asset       1100.0        BS        Cash          Debit
+
+--- manual_adjustments.json ---
+JSON file: manual_adjustments.json
+
+--- prior_period_tb.csv ---
+ account_code              account_name currency     debit  credit
+         1110 Cash and Cash Equivalents      USD 3980000.0     0.0
+         1110 Cash and Cash Equivalents      EUR  710200.0     0.0
+         1110 Cash and Cash Equivalents      GBP  385600.0     0.0
+
+--- fx_rates.csv ---
+currency      rate_type  rate  period
+     EUR period_average 1.082 2024-Q4
+     EUR     period_end 1.095 2024-Q4
+     GBP period_average 1.264 2024-Q4
+(erp-financial-agent) PS C:\Users\aadit\OneDrive\Desktop\erp-financial-agent> python -m pytest -v
+==================================================================== test session starts =====================================================================
+platform win32 -- Python 3.13.15, pytest-9.1.1, pluggy-1.7.0 -- C:\Users\aadit\OneDrive\Desktop\erp-financial-agent\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\aadit\OneDrive\Desktop\erp-financial-agent
+plugins: anyio-4.15.1, langsmith-0.14.13
+collected 13 items                                                                                                                                            
+
+tests/test_data_quality.py::test_detects_unknown_account_and_imbalance PASSED                                                                           [  7%]
+tests/test_data_quality.py::test_detects_missing_cash_flow_category PASSED                                                                              [ 15%]
+tests/test_data_quality.py::test_clean_trial_balance_has_no_issues PASSED                                                                               [ 23%]
+tests/test_reconciliation.py::test_missing_period_end_fx_rate_is_flagged PASSED                                                                         [ 30%]
+tests/test_reconciliation.py::test_existing_period_end_rates_pass PASSED                                                                                [ 38%]
+tests/test_reconciliation.py::test_prior_period_only_account_is_flagged PASSED                                                                          [ 46%]
+tests/test_rejection_explanations.py::test_deterministic_explanation_includes_validation_issue PASSED                                                   [ 53%]
+tests/test_rejection_explanations.py::test_rejection_explanation_works_without_api_key PASSED                                                           [ 61%]
+tests/test_rejection_explanations.py::test_eligible_journals_are_not_explained PASSED                                                                   [ 69%]
+tests/test_validators.py::test_balanced_entry_is_eligible PASSED                                                                                        [ 76%]
+tests/test_validators.py::test_unbalanced_entry_is_rejected PASSED                                                                                      [ 84%]
+tests/test_validators.py::test_unknown_account_is_rejected PASSED                                                                                       [ 92%]
+tests/test_validators.py::test_intercompany_entry_requires_review PASSED                                                                                [100%]
+
+===================================================================== 13 passed in 0.82s =====================================================================
+(erp-financial-agent) PS C:\Users\aadit\OneDrive\Desktop\erp-financial-agent> python -m src.main
+{
+  "total_entries": 10,
+  "eligible": 7,
+  "rejected": 2,
+  "needs_review": 1
+}
+Data-quality issues: 38
